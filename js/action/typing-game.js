@@ -4,7 +4,7 @@
 $(document).ready(function(){
     var word_list=[{"word":"hello"},{"word":"world"}];
     for(var i = 0;i<word_list.length;i++){
-        $('.game-body').append('<div class="word" id="word'+i+'">'+word_list[i].word+'</div>');
+        $('.game-body').append('<div class="word" data-org-word="'+ word_list[i].word +'" id="word'+i+'">'+word_list[i].word+'</div>');
     }
     initial();
 });
