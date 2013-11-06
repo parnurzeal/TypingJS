@@ -2,3 +2,7 @@
     position: absolute;
     top:0px;
 }
+
+canvas{
+    border: 1px solid black;
+}
