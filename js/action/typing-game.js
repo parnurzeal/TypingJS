@@ -13,84 +13,47 @@ var ctx = canvas.getContext('2d');
 function ctxInitial(){
     ctx.font = "15pt Arial";
     ctx.textBaseline = "top";
-    for(var i =0;i<word_list.length;i++){
-        ctx.fillText(word_list[i].word,word_list[i].x,word_list[i].y);
-    }
 }
-
+function clearCanvas(){
+    ctx.save();
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,canvas.width, canvas.height);
+    ctx.restore();
+}
 function ctxTextsRender(){
+    clearCanvas();
     for(var i=0;i<word_list.length;i++){
-
+        ctx.fillText(word_list[i].word,word_list[i].x,word_list[i].y);
     }
 }
 
 $(document).ready(function(){
     ctxInitial();
-    //initial();
+    ctxTextsRender();
 });
 
 function addWord(new_word){
     if(word_list.length<=20){
         var rand_left=Math.floor(Math.random()*canvas.width);
-        word_list.push({"word":"new","x":rand_left,"y":0,"v":10});
+        var rand_velo=Math.floor(Math.random()*10+10);
+        word_list.push({"word":"new","x":rand_left,"y":0,"v":rand_velo});
     }
-}
-
-function findPos(element){
-    if(element){
-        var parentPos = findPos(element.offsetParent);
-        return {
-            x:parentPos.x + element.offsetLeft,
-            y:parentPos.y + element.offsetTop
-        };
-    }else{
-        return {x:0,y:0};
-    }
-}
-function initial(){
-    var content='';
-    for(var i = 0;i<word_list.length;i++){
-        content+='<div class="word" '
-            +'style="left: '+word_list[i].x+'px; top: ' +word_list[i].y+'px" '
-            +'data-org-word="'+ word_list[i].word +'" '
-            +'id="word'+i+'">'
-            + word_list[i].word
-            + '</div>';
-    }
-    $('.game-body').html(content);
 }
 
 function move(){
     for(var i=0;i<word_list.length;i++){
-        word_list[i].y+=10;
+        word_list[i].y+=word_list[i].v;
+        if(word_list[i].y>=canvas.height){
+            word_list.splice(i,1);
+            i--;
+        }
     }
-    var content='';
-    for(var i = 0;i<word_list.length;i++){
-        content+='<div class="word" '
-            +'style="left: '+word_list[i].x+'px; top: ' +word_list[i].y+'px" '
-            +'data-org-word="'+ word_list[i].word +'" '
-            +'id="word'+i+'">'
-            + word_list[i].word
-            + '</div>';
-    }
-    $('.game-body').html(content);
-    /*var all_div = $('.game-body').children();
-    for(var i = 0;i<all_div.length;i++){
-        var curPos = findPos(all_div[i]);
-        // TODO: change 10 to speed
-        var newPos = {x:curPos.x,y:curPos.y+10}
-        $('#'+all_div[i].id).css('top',newPos.y+'px');
-    }*/
-
-    /*console.log(word_list);
-    for(var i = 0;i<word_list.length;i++){
-        $('.game-body').append('<div class="word" data-org-word="'+ word_list[i].word +'" id="word'+i+'">'+word_list[i].word+'</div>');
-    }*/
 }
 
 // TODO: change 1000 to appropriate small number
-var timer = Math.floor(Math.random() +1000);
+var timer = Math.floor(100);
 window.setInterval(function(){
     move();
     addWord();
+    ctxTextsRender();
 }, timer);
