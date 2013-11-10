@@ -9,16 +9,16 @@ requirejs.config({
 require(['jquery','app/canvas','app/words'], function($,game_screen,words){
     
     $(document).ready(function(){
-        game_screen.ctxInitial();
-        game_screen.textsRender(words.getWordList);
+        game_screen.initial();
+        game_screen.textsRender(words.getList());
     });
 
     // TODO: change 1000 to appropriate small number
-    var timer = Math.floor(1000);
+    var timer = Math.floor(100);
     window.setInterval(function(){
         words.move();
-        words.addWord(null);
-        game_screen.textsRender(words.getWordList());
+        words.add(null);
+        game_screen.textsRender(words.getList());
     }, timer);
 });
 
