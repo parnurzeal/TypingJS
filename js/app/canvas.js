@@ -16,7 +16,13 @@ define(function(){
     	textsRender: function(word_list){
     		this.clear();
 	        for(var i=0;i<word_list.length;i++){
-	            ctx.fillText(word_list[i].word,word_list[i].x,word_list[i].y);
+	        	var word = word_list[i];
+	        	// won't render already typed text
+	        	if(word.type_pos!==0){
+	        		ctx.fillText(word.text.substring(word.type_pos),word.x,word.y);
+	        	}else{
+	            	ctx.fillText(word.text,word.x,word.y);
+	            }
 	        }
     	}
     }

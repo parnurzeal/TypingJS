@@ -2,7 +2,7 @@ requirejs.config({
     baseUrl: 'js/lib',
     paths:{
         app: '../app',
-        jquery: 'jquery-2.0.3.min'
+        jquery: 'jquery-2.0.3.min',
     }
 });
 
@@ -10,15 +10,26 @@ require(['jquery','app/canvas','app/words'], function($,game_screen,words){
     
     $(document).ready(function(){
         game_screen.initial();
-        game_screen.textsRender(words.getList());
+        game_screen.textsRender(words.getWordList());
     });
 
+
+    $(document).on('keypress', keyHandler);
+
+    function keyHandler(e){
+        e = e || event
+        var key=String.fromCharCode(e.which);
+        console.log('Key: ',key);
+        words.executeKey(key);
+    }
+
     // TODO: change 1000 to appropriate small number
-    var timer = Math.floor(100);
+    var timer = Math.floor(1000);
     window.setInterval(function(){
-        words.move();
-        words.add(null);
-        game_screen.textsRender(words.getList());
+        words.moveWord();
+        words.addWord(null);
+        words.updateList();
+        game_screen.textsRender(words.getWordList());
     }, timer);
 });
 
