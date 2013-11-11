@@ -1,7 +1,7 @@
 define(['app/canvas'],function(canvas){
     var word_list=[
-        {"text":"hello","x":20,"y":0,"v":10,"type_pos":0},
-        {"text":"world","x":200,"y":0,"v":10,"type_pos":0}
+        {"text":"hello","x":20,"y":0,"v":1,"type_pos":0},
+        {"text":"world","x":200,"y":0,"v":1,"type_pos":0}
         ];
     var game_screen = canvas.getCanvas();
     var locked_word=null;
@@ -10,8 +10,8 @@ define(['app/canvas'],function(canvas){
 
     		if(word_list.length<=5){
 		        var rand_left=Math.floor(Math.random()*game_screen.width);
-		        var rand_velo=Math.floor(Math.random()*10+10);
-		        word_list.push({"text":"new","x":rand_left,"y":0,"v":rand_velo,"type_pos":0});
+		        var rand_velo=Math.random();
+		        word_list.push({"text":"new","x":rand_left,"y":-10,"v":rand_velo,"type_pos":0});
 		    }
 		},
 		moveWord: function(){

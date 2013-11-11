@@ -14,17 +14,15 @@ require(['jquery','app/canvas','app/words'], function($,game_screen,words){
     });
 
 
-    $(document).on('keypress', keyHandler);
-
-    function keyHandler(e){
+    $(document).on('keypress', function(e){
         e = e || event
         var key=String.fromCharCode(e.which);
         console.log('Key: ',key);
         words.executeKey(key);
-    }
+    });
 
     // TODO: change 1000 to appropriate small number
-    var timer = Math.floor(1000);
+    var timer = Math.floor(50);
     window.setInterval(function(){
         words.moveWord();
         words.addWord(null);
