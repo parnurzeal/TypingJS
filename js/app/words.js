@@ -1,21 +1,26 @@
-define(['app/canvas'],function(canvas){
-    var word_list=[
+define(function(){
+    var word_list;
+    var canvas;
+    var locked_word;
+    function Words(game_screen){
+		word_list=[
         {"text":"hello","x":20,"y":0,"v":1,"type_pos":0},
         {"text":"world","x":200,"y":0,"v":1,"type_pos":0}
         ];
-    var game_screen = canvas.getCanvas();
-    var locked_word=null;
-    return {
-    	addWord: function(new_word){ 
+        canvas= game_screen.getCanvas();
+        locked_word=null;
+    }
 
-    		if(word_list.length<=5){
-		        var rand_left=Math.floor(Math.random()*game_screen.width);
+    Words.prototype = {
+    	addWord : function(new_word){
+		    if(word_list.length<=5){
+		        var rand_left=Math.floor(Math.random()*canvas.width);
 		        var rand_velo=Math.random();
-		        word_list.push({"text":"new","x":rand_left,"y":-10,"v":rand_velo,"type_pos":0});
+		        word_list.push({"text":new_word,"x":rand_left,"y":-10,"v":rand_velo,"type_pos":0});
 		    }
-		},
+	    },
 		moveWord: function(){
-	        for(var i=0;i<word_list.length;i++){
+	        for(var i=0,len=word_list.length;i<len;i++){
 	            word_list[i].y+=word_list[i].v;
 	        }
 	    },
@@ -27,7 +32,7 @@ define(['app/canvas'],function(canvas){
 	    },
 	    lockWord: function(idx, pos){
 	    	if(locked_word===null) {
-	    		locked_word= new Object();
+	    		locked_word= {};
 	    	}
 	    	locked_word.idx = idx;
 	    	locked_word.pos = pos;
@@ -41,7 +46,7 @@ define(['app/canvas'],function(canvas){
 	    },
 	    updateList: function(){
 	    	for(var i=0;i<word_list.length;i++){
-	            if(word_list[i].y>=game_screen.height){
+	            if(word_list[i].y>=canvas.height){
 	            	// unlock if out-of-range word is in locking state.
 	            	if(locked_word!==null){
 	            		if(locked_word.idx===i){
@@ -71,7 +76,7 @@ define(['app/canvas'],function(canvas){
 	            }
 	            console.log('locking');
 	    	}else{
-		    	for(var i =  0;i<word_list.length;i++){
+		    	for(var i =  0,len=word_list.length;i<len;i++){
 		            if(word_list[i].text[0]===key){
 		                console.log('found!');
 		                this.lockWord(i,1);
@@ -80,5 +85,6 @@ define(['app/canvas'],function(canvas){
 		    	}    
 		    }
 	    }
-	}
+	};
+	return Words;
 });

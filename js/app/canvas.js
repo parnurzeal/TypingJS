@@ -1,7 +1,10 @@
 define(function(){
-	var canvas = document.getElementById('game-body');
-	var ctx = canvas.getContext('2d');
-    return {
+	function Screen(screen_id){
+        canvas = document.getElementById(screen_id);
+        ctx = canvas.getContext('2d');
+    }
+
+    Screen.prototype={
     	getCanvas: function() { return canvas;},
     	initial: function() {
     		ctx.font = "15pt Arial";
@@ -25,5 +28,6 @@ define(function(){
 	            }
 	        }
     	}
-    }
+    };
+    return Screen;
 });
