@@ -6,15 +6,16 @@ requirejs.config({
     }
 });
 
-require(['jquery','app/canvas','app/words'], function($,Screen,Words){
+require(['jquery','app/screen','app/words'], function($,Screen,Words){
 
     
     var game_screen = new Screen('game-body');
-    var words1 = new Words(game_screen);
+    var words = new Words(game_screen);
     $(document).ready(function(){
 
         game_screen.initial();
-        game_screen.textsRender(words1.getWordList());
+        game_screen.textsRender(words.getWordList());
+
     });
 
 
@@ -22,16 +23,16 @@ require(['jquery','app/canvas','app/words'], function($,Screen,Words){
         e = e || event;
         var key=String.fromCharCode(e.which);
         console.log('Key: ',key);
-        words1.executeKey(key);
+        words.executeKey(key);
     });
 
     // TODO: change 1000 to appropriate small number
     var timer = Math.floor(50);
     window.setInterval(function(){
-        words1.moveWord();
-        words1.addWord('new');
-        words1.updateList();
-        game_screen.textsRender(words1.getWordList());
+        words.moveWord();
+        words.addWord('new');
+        words.updateList();
+        game_screen.textsRender(words.getWordList());
     }, timer);
 });
 
