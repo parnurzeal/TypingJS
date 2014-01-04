@@ -1,0 +1,13 @@
+{
+    "name": "TypingJS",
+    "private": true,
+    "version": "0.0.0",
+    "description": "a typing game framework",
+    "dependencies": {
+        "connect": "*"
+    },
+    "main": "app.js",
+    "repository": "",
+    "author": "",
+    "license": ""
+}
