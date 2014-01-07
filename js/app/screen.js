@@ -19,7 +19,7 @@ define(function(){
             var width = this.canvas.width;
             var height = this.canvas.height;
             var word_list = this.word_box.getWordList();
-	        for(var i=0;i<word_list.length;i++){
+	        for(var i=0, len = word_list.length;i<len;i++){
 	        	var word = word_list[i];
 	        	// won't render already typed text
 	        	if(word.type_pos!==0){
