@@ -10,14 +10,7 @@ require(['jquery','app/screen','app/words'], function($,Screen,Words){
 
     var words = new Words();
     var game_screen = new Screen('game-body', words);
-    $(document).ready(function(){
-
-        game_screen.initial();
-        game_screen.textsRender(words.getWordList());
-
-    });
-
-
+    
     $(document).on('keypress', function(e){
         e = e || event;
         var key=String.fromCharCode(e.which);
@@ -31,7 +24,7 @@ require(['jquery','app/screen','app/words'], function($,Screen,Words){
         words.moveWord();
         words.addWord('new');
         words.updateList();
-        game_screen.textsRender(words.getWordList());
+        game_screen.render();
     }, timer);
 });
 
