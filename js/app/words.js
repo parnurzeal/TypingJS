@@ -41,7 +41,7 @@ define(function(){
 	    	this.locked_word = null;
 	    },
 	    updateList: function(){
-	    	for(var i=0,len=this.word_list.length;i<len;i++){
+	    	for(var i=0;i<this.word_list.length;i++){
 	            if(this.word_list[i].y>=1){
 	            	// unlock if out-of-range word is in locking state.
 	            	if(this.locked_word!==null){
