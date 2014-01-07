@@ -8,9 +8,8 @@ requirejs.config({
 
 require(['jquery','app/screen','app/words'], function($,Screen,Words){
 
-    
-    var game_screen = new Screen('game-body');
-    var words = new Words(game_screen);
+    var words = new Words();
+    var game_screen = new Screen('game-body', words);
     $(document).ready(function(){
 
         game_screen.initial();

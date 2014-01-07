@@ -1,22 +1,20 @@
 define(function(){
     var word_list;
-    var canvas;
     var locked_word;
-    function Words(game_screen){
+    function Words(){
 		word_list=[
-        {"text":"hello","x":20,"y":0,"v":1,"type_pos":0},
-        {"text":"world","x":200,"y":0,"v":1,"type_pos":0}
+        {"text":"hello","x":0.01,"y":0,"v":0.01,"type_pos":0},
+        {"text":"world","x":0.50,"y":0,"v":0.01,"type_pos":0}
         ];
-        canvas= game_screen.getCanvas();
         locked_word=null;
     }
 
     Words.prototype = {
     	addWord : function(new_word){
 		    if(word_list.length<=5){
-		        var rand_left=Math.floor(Math.random()*canvas.width);
-		        var rand_velo=Math.random();
-		        word_list.push({"text":new_word,"x":rand_left,"y":-10,"v":rand_velo,"type_pos":0});
+		        var rand_left=Math.random();
+		        var rand_velo=Math.random()*0.01;
+		        word_list.push({"text":new_word,"x":rand_left,"y":-0.10,"v":rand_velo,"type_pos":0});
 		    }
 	    },
 		moveWord: function(){
@@ -46,7 +44,7 @@ define(function(){
 	    },
 	    updateList: function(){
 	    	for(var i=0;i<word_list.length;i++){
-	            if(word_list[i].y>=canvas.height){
+	            if(word_list[i].y>=1){
 	            	// unlock if out-of-range word is in locking state.
 	            	if(locked_word!==null){
 	            		if(locked_word.idx===i){
