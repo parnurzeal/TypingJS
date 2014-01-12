@@ -15,6 +15,9 @@ define(function(){
 		        this.word_list.push({"text":new_word,"x":rand_left,"y":-0.10,"v":rand_velo,"type_pos":0});
 		    }
 	    },
+	    setWords: function(new_words){
+	    	this.word_list = new_words;
+	    },
 		moveWord: function(){
 	        for(var i=0,len=this.word_list.length;i<len;i++){
 	            this.word_list[i].y+=this.word_list[i].v;

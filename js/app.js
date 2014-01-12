@@ -3,7 +3,8 @@ requirejs.config({
     paths:{
         app: '../app',
         jquery: 'jquery-2.0.3.min',
-        datachannel: 'DataChannel'
+        datachannel: 'DataChannel',
+        screenshot: 'screenshot'
     },
     shim: {
         'datachannel': {
@@ -16,14 +17,20 @@ require(['jquery','datachannel','app/screen','app/words'], function($,DataChanne
 
     var words = new Words();
     var game_screen = new Screen('game-body', words);
+    var words2 = new Words();
+    var game_screen2 = new Screen('game-body2',words2);
+
 
     var channel = new DataChannel();
+    var open = false;
 
     channel.onopen = function(){
-
+        open=true;
     };
     channel.onmessage = function(message, userid, latency){
         console.log('Message: ', message, userid, latency);
+        words2.setWords(message);
+        game_screen2.render();
     };
     channel.onleave = function(userid){
         console.log('User Leave: ', userid);
@@ -53,6 +60,9 @@ require(['jquery','datachannel','app/screen','app/words'], function($,DataChanne
         words.addWord('new');
         words.updateList();
         game_screen.render();
+        if(open){
+            channel.send(words.getWordList());
+        }
     }, timer);
 
 
