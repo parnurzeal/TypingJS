@@ -48,7 +48,7 @@ require(['jquery','datachannel','app/screen','app/words'], function($,DataChanne
             channel.connect(channel_val);
             console.log('Join: ', channel_val);
         }else{
-            channel.send(key);
+            //channel.send(key);
         }
     });
 
