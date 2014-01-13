@@ -30,7 +30,6 @@ require(['jquery','datachannel','app/screen','app/words'], function($,DataChanne
     channel.onmessage = function(message, userid, latency){
         console.log('Message: ', message, userid, latency);
         words2.setWords(message);
-        game_screen2.render();
     };
     channel.onleave = function(userid){
         console.log('User Leave: ', userid);
@@ -54,7 +53,7 @@ require(['jquery','datachannel','app/screen','app/words'], function($,DataChanne
     });
 
     // TODO: change 1000 to appropriate small number
-    var timer = Math.floor(50);
+    var timer = Math.floor(17);
     window.setInterval(function(){
         words.moveWord();
         words.addWord('new');
@@ -63,6 +62,7 @@ require(['jquery','datachannel','app/screen','app/words'], function($,DataChanne
         if(open){
             channel.send(words.getWordList());
         }
+        game_screen2.render();
     }, timer);
 
 
